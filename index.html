@@ -13,7 +13,7 @@
 
       <form id="dispatch-form">
         <label for="token" class="form-label">Please enter the secret token provided in your AE instructions:</label>
-        <input id="token" name="token" type="text" class="form-control" placeholder="github_pat_XXXX..." autocomplete="off" required>
+        <input id="token" name="token" type="password" class="form-control" placeholder="github_pat_XXXX..." autocomplete="off">
         <button type="submit" class="btn btn-primary mt-3">Run workflow</button>
       </form>
 
@@ -31,6 +31,11 @@
       event.preventDefault();
 
       const token = tokenInput.value.trim();
+      if (!token) {
+        status.textContent = "Please enter a token.";
+        return;
+      }
+
       let requestSucceeded = false;
       submitButton.disabled = true;
       status.textContent = "Sending workflow dispatch request...";

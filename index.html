@@ -21,21 +21,20 @@
     </div>
   </main>
 
-  <script type="module">
+  <script>
     const form = document.getElementById("dispatch-form");
     const submitButton = form.querySelector("button");
     const status = document.getElementById("status");
 
     const setStatus = (message) => (status.textContent = message);
-    form.elements.token.addEventListener("input", () => (submitButton.disabled = false));
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      submitButton.disabled = true;
 
       const token = form.elements.token.value.trim();
       if (!token) return setStatus("Please enter a token.");
 
+      submitButton.disabled = true;
       setStatus("Sending workflow dispatch request...");
 
       try {
@@ -63,8 +62,10 @@
 
         const message = await response.text();
         setStatus(`Request failed (${response.status}): ${message}`);
+        submitButton.disabled = false;
       } catch (error) {
         setStatus(`Request failed: ${error.message}`);
+        submitButton.disabled = false;
       }
     });
   </script>

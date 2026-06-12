@@ -21,14 +21,21 @@
     </div>
   </main>
 
-  <script>
+  <script type="module">
+    import { Octokit } from "https://cdn.jsdelivr.net/npm/@octokit/core/+esm";
+
     const form = document.getElementById("dispatch-form");
     const tokenInput = document.getElementById("token");
     const submitButton = form.querySelector("button");
     const status = document.getElementById("status");
 
+    tokenInput.addEventListener("input", () => {
+      submitButton.disabled = false;
+    });
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      submitButton.disabled = true;
 
       const token = tokenInput.value;
       if (!token) {
@@ -36,33 +43,29 @@
         return;
       }
 
-      let requestSucceeded = false;
-      submitButton.disabled = true;
       status.textContent = "Sending workflow dispatch request...";
 
       try {
-        const response = await fetch(
-          "https://api.github.com/repos/lashhw/test-workflow-dispatch/actions/workflows/ci.yml/dispatches",
+        const octokit = new Octokit({ auth: token });
+        const response = await octokit.request(
+          "POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches",
           {
-            method: "POST",
+            owner: "lashhw",
+            repo: "test-workflow-dispatch",
+            workflow_id: "ci.yml",
+            ref: "main",
             headers: {
-              "Accept": "application/vnd.github+json",
-              "Authorization": `Bearer ${token}`,
-              "X-GitHub-Api-Version": "2026-03-10",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ ref: "main" })
+              "X-GitHub-Api-Version": "2026-03-10"
+            }
           }
         );
 
-        if (response.status === 200) {
-          const result = await response.json();
-          requestSucceeded = true;
+        if (response.status === 200 && response.data?.html_url) {
           status.textContent = "The workflow was started successfully. View the run:";
 
           const link = document.createElement("a");
-          link.href = result.html_url;
-          link.textContent = result.html_url;
+          link.href = response.data.html_url;
+          link.textContent = response.data.html_url;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
           status.append(" ", link);
@@ -70,14 +73,10 @@
           return;
         }
 
-        const message = await response.text();
-        status.textContent = `Request failed (${response.status}): ${message || response.statusText}`;
+        status.textContent = `Request failed (${response.status}).`;
       } catch (error) {
-        status.textContent = `Request failed: ${error.message}`;
-      } finally {
-        if (!requestSucceeded) {
-          submitButton.disabled = false;
-        }
+        const details = error.response?.data?.message || error.message;
+        status.textContent = `Request failed: ${details}`;
       }
     });
   </script>

@@ -30,7 +30,7 @@
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const token = tokenInput.value.trim();
+      const token = tokenInput.value;
       if (!token) {
         status.textContent = "Please enter a token.";
         return;

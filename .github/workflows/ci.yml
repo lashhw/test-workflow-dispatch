@@ -11,6 +11,7 @@ on:
         - task_2
 jobs:
   run:
+    name: ${{ inputs.task }}
     runs-on: ubuntu-latest
     steps:
       - name: Run task_1

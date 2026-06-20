@@ -1,4 +1,4 @@
-name: CI
+name: artifact-evaluation
 run-name: ${{ inputs.task }}
 on:
   workflow_dispatch:

@@ -1,10 +1,20 @@
 name: CI
 on:
   workflow_dispatch:
+    inputs:
+      task:
+        type: choice
+        required: true
+        options:
+        - task_1
+        - task_2
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - name: Sleep
+      - name: Run task_1
+        if: ${{ inputs.task == 'task_1' }}
+        run: sleep 1s
+      - name: Run task_2
+        if: ${{ inputs.task == 'task_2' }}
         run: sleep 1m

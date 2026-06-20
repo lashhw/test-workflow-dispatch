@@ -18,7 +18,12 @@
         </div>
 
         <div class="border-top mt-4 pt-4">
-          <h2 class="h5 mb-3">Run workflow</h2>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="h5 mb-0">Run workflow</h2>
+            <a class="btn btn-sm btn-outline-secondary" href="https://github.com/lashhw/test-workflow-dispatch/actions/workflows/artifact-evaluation.yml" target="_blank" rel="noopener noreferrer">
+              View workflow runs
+            </a>
+          </div>
           <label for="task" class="form-label">Choose the workflow task to trigger:</label>
           <select id="task" name="task" class="form-select" required>
             <option value="task_1">task_1</option>
@@ -29,15 +34,6 @@
       </form>
 
       <p id="status" class="mt-3 mb-0 text-break" role="status"></p>
-
-      <section class="border-top mt-4 pt-4">
-        <h2 class="h5 mb-3">View all workflow runs</h2>
-        <p class="mb-0">
-          <a href="https://github.com/lashhw/test-workflow-dispatch/actions/workflows/artifact-evaluation.yml" target="_blank" rel="noopener noreferrer">
-            https://github.com/lashhw/test-workflow-dispatch/actions/workflows/artifact-evaluation.yml
-          </a>
-        </p>
-      </section>
 
       <section id="cancel-run-section" class="border-top mt-4 pt-4">
         <h2 class="h5 mb-3">Cancel a running workflow</h2>

@@ -158,12 +158,10 @@
 
     const setRunOptions = (runs) => {
       runSelect.replaceChildren();
-
       if (!runs.length) {
         runSelect.append(new Option("No cancellable workflow runs found", ""));
         return;
       }
-
       for (const run of runs) {
         const runLabel = `${run.name} #${run.run_number}`;
         const option = new Option(`${runLabel} (${run.status})`, run.id);

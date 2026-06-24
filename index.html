@@ -213,7 +213,6 @@
       setCancelStatus("Canceling workflow run...");
 
       try {
-        const selectedRunLabel = runSelect.selectedOptions[0].textContent;
         const response = await fetch(`${apiBaseUrl}/actions/runs/${runId}/cancel`, {
           method: "POST",
           headers: {
@@ -224,6 +223,7 @@
         });
 
         if (response.ok) {
+          const selectedRunLabel = runSelect.selectedOptions[0].textContent;
           setCancelStatus(`${selectedRunLabel} was canceled successfully.`);
           runSelect.querySelector(`option[value="${runId}"]`).remove();
           if (!runSelect.options.length) setRunOptions([]);

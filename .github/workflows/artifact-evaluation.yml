@@ -15,7 +15,6 @@ on:
 jobs:
   task_1:
     if: ${{ inputs.task == 'task_1' }}
-    name: task_1 / ${{ inputs.arguments }}
     runs-on: ubuntu-latest
     env:
       ARGUMENTS: ${{ inputs.arguments }}
@@ -25,7 +24,6 @@ jobs:
         run: bash task_1.sh "$ARGUMENTS"
   task_2:
     if: ${{ inputs.task == 'task_2' }}
-    name: task_2 / ${{ inputs.arguments }}
     runs-on: ubuntu-latest
     env:
       ARGUMENTS: ${{ inputs.arguments }}

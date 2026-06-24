@@ -136,7 +136,7 @@
       setRunStatus("Sending workflow dispatch request...");
 
       try {
-        const response = await fetch(`${apiBaseUrl}/actions/workflows/${encodedWorkflowFile}/dispatches`, {
+        const response = await fetch(`${apiBaseUrl}/actions/workflows/${workflowFile}/dispatches`, {
           method: "POST",
           headers: {
             Accept: "application/vnd.github+json",
@@ -194,7 +194,7 @@
       setCancelStatus("Loading workflow runs...");
 
       try {
-        const response = await fetch(`${apiBaseUrl}/actions/runs?per_page=100&_=${Date.now()}`, {
+        const response = await fetch(`${apiBaseUrl}/actions/workflows/${workflowFile}/runs?per_page=100&_=${Date.now()}`, {
           headers: {
             Accept: "application/vnd.github+json",
             Authorization: `Bearer ${token}`,

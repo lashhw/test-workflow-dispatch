@@ -1,19 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
-options="${1:-}"
+option="${1:-}"
 
-case "$options" in
+case "$option" in
   quick)
-    echo "task_2: running with options: quick"
+    echo "task_2: running with option: quick"
     sleep 1
     ;;
   long)
-    echo "task_2: running with options: long"
+    echo "task_2: running with option: long"
     sleep 60
     ;;
   *)
-    echo "Invalid options for task_2: ${options:-<empty>}"
+    echo "Invalid option for task_2: ${option:-<empty>}"
     echo "Available options: quick, long"
     exit 2
     ;;

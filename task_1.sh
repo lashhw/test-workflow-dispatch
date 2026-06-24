@@ -1,19 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
-options="${1:-}"
+option="${1:-}"
 
-case "$options" in
+case "$option" in
   small)
-    echo "task_1: running with options: small"
+    echo "task_1: running with option: small"
     sleep 1
     ;;
   large)
-    echo "task_1: running with options: large"
+    echo "task_1: running with option: large"
     sleep 3
     ;;
   *)
-    echo "Invalid options for task_1: ${options:-<empty>}"
+    echo "Invalid option for task_1: ${option:-<empty>}"
     echo "Available options: small, large"
     exit 2
     ;;

@@ -102,7 +102,7 @@
         }
 
         const message = await response.text();
-        setRunStatus(`Request failed (${response.status}): ${message}`);
+        setRunStatus(`Request failed: ${message}`);
         startTaskButton.disabled = false;
       } catch (error) {
         setRunStatus(`Request failed: ${error.message}`);
@@ -142,16 +142,16 @@
           }
         });
 
-        if (!response.ok) {
-          const message = await response.text();
-          setCancelStatus(`Failed to load runs (${response.status}): ${message}`);
+        if (response.ok) {
+          const data = await response.json();
+          const runs = data.workflow_runs.filter((run) => cancellableStatuses.includes(run.status));
+          setRunOptions(runs);
+          setCancelStatus(`${runs.length} cancellable workflow run(s) loaded.`);
           return;
         }
 
-        const data = await response.json();
-        const runs = data.workflow_runs.filter((run) => cancellableStatuses.includes(run.status));
-        setRunOptions(runs);
-        setCancelStatus(`${runs.length} cancellable workflow run(s) loaded.`);
+        const message = await response.text();
+        setCancelStatus(`Failed to load runs: ${message}`);
       } catch (error) {
         setCancelStatus(`Failed to load runs: ${error.message}`);
       } finally {
@@ -161,9 +161,9 @@
 
     cancelRunButton.addEventListener("click", async () => {
       const token = tokenInput.value.trim();
-      const runId = runSelect.value;
-
       if (!token) return setCancelStatus("Please enter a token.");
+
+      const runId = runSelect.value;
       if (!runId) return setCancelStatus("Please choose a workflow run.");
 
       cancelRunButton.disabled = true;
@@ -180,7 +180,7 @@
           }
         });
 
-        if (response.status === 202) {
+        if (response.ok) {
           setCancelStatus(`${selectedRunLabel} was canceled successfully.`);
           runSelect.querySelector(`option[value="${runId}"]`)?.remove();
           if (!runSelect.options.length) setRunOptions([]);
@@ -188,7 +188,7 @@
         }
 
         const message = await response.text();
-        setCancelStatus(`Cancel failed (${response.status}): ${message}`);
+        setCancelStatus(`Cancel failed: ${message}`);
       } catch (error) {
         setCancelStatus(`Cancel failed: ${error.message}`);
       } finally {

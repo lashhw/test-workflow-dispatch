@@ -62,7 +62,6 @@
     const workflowFile = config.workflowFile;
     const githubBaseUrl = `https://github.com/${repoPath}`;
     const apiBaseUrl = `https://api.github.com/repos/${repoPath}`;
-    workflowRunsLink.href = `${githubBaseUrl}/actions/workflows/${workflowFile}`;
 
     const tokenInput = document.getElementById("token");
 
@@ -71,15 +70,15 @@
     const optionSelect = document.getElementById("option");
     const startTaskButton = document.getElementById("start-task");
     const runStatus = document.getElementById("run-status");
+    workflowRunsLink.href = `${githubBaseUrl}/actions/workflows/${workflowFile}`;
+    const setRunStatus = (message) => (runStatus.textContent = message);
 
     const refreshRunsButton = document.getElementById("refresh-runs");
     const runSelect = document.getElementById("run");
     const cancelRunButton = document.getElementById("cancel-run");
     const cancelStatus = document.getElementById("cancel-status");
-
-    const setRunStatus = (message) => (runStatus.textContent = message);
-    const setCancelStatus = (message) => (cancelStatus.textContent = message);
     const cancellableStatuses = ["in_progress", "queued", "requested", "waiting", "pending"];
+    const setCancelStatus = (message) => (cancelStatus.textContent = message);
 
     const populateTaskOptions = () => {
       taskSelect.replaceChildren();

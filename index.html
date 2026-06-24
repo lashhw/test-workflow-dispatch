@@ -70,8 +70,8 @@
     startTaskButton.addEventListener("click", async () => {
       const token = tokenInput.value.trim();
       if (!token) return setRunStatus("Please enter a token.");
-      const task = taskSelect.value;
 
+      const task = taskSelect.value;
       startTaskButton.disabled = true;
       setRunStatus("Sending workflow dispatch request...");
 

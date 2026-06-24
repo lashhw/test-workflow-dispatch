@@ -1,20 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-arguments="${1:-}"
+options="${1:-}"
 
-case "$arguments" in
+case "$options" in
   small)
-    echo "task_1: running with arguments: small"
+    echo "task_1: running with options: small"
     sleep 1
     ;;
   large)
-    echo "task_1: running with arguments: large"
+    echo "task_1: running with options: large"
     sleep 3
     ;;
   *)
-    echo "Invalid arguments for task_1: ${arguments:-<empty>}"
-    echo "Available arguments: small, large"
+    echo "Invalid options for task_1: ${options:-<empty>}"
+    echo "Available options: small, large"
     exit 2
     ;;
 esac

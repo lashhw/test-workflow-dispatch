@@ -1,20 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-arguments="${1:-}"
+options="${1:-}"
 
-case "$arguments" in
+case "$options" in
   quick)
-    echo "task_2: running with arguments: quick"
+    echo "task_2: running with options: quick"
     sleep 1
     ;;
   long)
-    echo "task_2: running with arguments: long"
+    echo "task_2: running with options: long"
     sleep 60
     ;;
   *)
-    echo "Invalid arguments for task_2: ${arguments:-<empty>}"
-    echo "Available arguments: quick, long"
+    echo "Invalid options for task_2: ${options:-<empty>}"
+    echo "Available options: quick, long"
     exit 2
     ;;
 esac

@@ -66,6 +66,8 @@
     const setCancelStatus = (message) => (cancelStatus.textContent = message);
     const cancellableStatuses = ["in_progress", "queued", "requested", "waiting", "pending"];
 
+    taskSelect.addEventListener("change", () => startTaskButton.disabled = false);
+
     startTaskButton.addEventListener("click", async () => {
       const token = tokenInput.value.trim();
       if (!token) return setRunStatus("Please enter a token.");

@@ -72,8 +72,8 @@
     const runStatus = document.getElementById("run-status");
 
     const refreshRunsButton = document.getElementById("refresh-runs");
-    const cancelRunButton = document.getElementById("cancel-run");
     const runSelect = document.getElementById("run");
+    const cancelRunButton = document.getElementById("cancel-run");
     const cancelStatus = document.getElementById("cancel-status");
 
     const setRunStatus = (message) => (runStatus.textContent = message);
@@ -85,7 +85,6 @@
 
     const populateTaskOptions = () => {
       taskSelect.replaceChildren();
-
       for (const [taskValue, task] of Object.entries(tasks)) {
         taskSelect.append(new Option(task.label, taskValue));
       }
@@ -94,19 +93,9 @@
     const populateWorkflowOptions = () => {
       const selectedTask = tasks[taskSelect.value];
       optionSelect.replaceChildren();
-
-      if (!selectedTask?.option.length) {
-        optionSelect.append(new Option("No options available", ""));
-        optionSelect.disabled = true;
-        startTaskButton.disabled = true;
-        return;
-      }
-
       for (const option of selectedTask.option) {
         optionSelect.append(new Option(option.label, option.value));
       }
-
-      optionSelect.disabled = false;
       startTaskButton.disabled = false;
     };
 

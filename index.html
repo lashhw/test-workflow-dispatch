@@ -167,7 +167,6 @@
       for (const run of runs) {
         const runLabel = `${run.name} #${run.run_number}`;
         const option = new Option(`${runLabel} (${run.status})`, run.id);
-        option.dataset.label = runLabel;
         runSelect.append(option);
       }
     };
@@ -216,7 +215,7 @@
       setCancelStatus("Canceling workflow run...");
 
       try {
-        const selectedRunLabel = runSelect.selectedOptions[0].dataset.label;
+        const selectedRunLabel = runSelect.selectedOptions[0].textContent;
         const response = await fetch(`${apiBaseUrl}/actions/runs/${runId}/cancel`, {
           method: "POST",
           headers: {

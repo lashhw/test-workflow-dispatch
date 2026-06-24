@@ -62,6 +62,7 @@
     const workflowFile = config.workflowFile;
     const githubBaseUrl = `https://github.com/${repoPath}`;
     const apiBaseUrl = `https://api.github.com/repos/${repoPath}`;
+    workflowRunsLink.href = `${githubBaseUrl}/actions/workflows/${workflowFile}`;
 
     const tokenInput = document.getElementById("token");
 
@@ -80,18 +81,15 @@
     const setCancelStatus = (message) => (cancelStatus.textContent = message);
     const cancellableStatuses = ["in_progress", "queued", "requested", "waiting", "pending"];
 
-    const tasks = window.workflowTasks;
-    workflowRunsLink.href = `${githubBaseUrl}/actions/workflows/${workflowFile}`;
-
     const populateTaskOptions = () => {
       taskSelect.replaceChildren();
-      for (const [taskValue, task] of Object.entries(tasks)) {
+      for (const [taskValue, task] of Object.entries(window.workflowTasks)) {
         taskSelect.append(new Option(task.label, taskValue));
       }
     };
 
     const populateWorkflowOptions = () => {
-      const selectedTask = tasks[taskSelect.value];
+      const selectedTask = window.workflowTasks[taskSelect.value];
       optionSelect.replaceChildren();
       for (const option of selectedTask.option) {
         optionSelect.append(new Option(option.label, option.value));

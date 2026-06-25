@@ -115,6 +115,7 @@
 
       const task = taskSelect.value;
       const option = optionSelect.value;
+      const optionDisplayName = optionSelect.selectedOptions[0].textContent;
       if (!task) return setRunStatus("Please choose a task.");
       if (!option) return setRunStatus("Please choose an option.");
 
@@ -131,13 +132,13 @@
           },
           body: JSON.stringify({
             ref: config.ref,
-            inputs: { task, option }
+            inputs: { task, option, optionDisplayName }
           })
         });
 
         if (response.ok) {
           const { html_url: runUrl } = await response.json();
-          runStatus.textContent = `${task} / ${option} was started successfully. View the run:`;
+          runStatus.textContent = `${task} / ${optionDisplayName} was started successfully. View the run:`;
           runStatus.append(" ", Object.assign(document.createElement("a"), {
             href: runUrl,
             textContent: runUrl,

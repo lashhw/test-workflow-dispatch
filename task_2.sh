@@ -10,7 +10,7 @@ case "$option" in
     ;;
   long)
     echo "task_2: running with option: long"
-    sleep 60
+    for i in {1..60}; do echo "test $i"; sleep 1; done
     ;;
   *)
     echo "Invalid option for task_2: ${option:-<empty>}"
